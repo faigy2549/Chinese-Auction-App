@@ -1,0 +1,26 @@
+<p-dialog [(visible)]="donarDialog" [style]="{width: '450px'}" header="donar Details" [modal]="true"
+    styleClass="p-fluid" [closable]="false">
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">first name</label>
+            <input type="text" pInputText id="firstname" [(ngModel)]="donar.firstName" required autofocus />
+            <small class="p-error" *ngIf=" !donar.firstName">First Name is required.</small>
+        </div>
+        <div class="p-field">
+            <label for="name">Last Name</label>
+            <input type="text" pInputText id="lastname" [(ngModel)]="donar.lastName" required autofocus />
+            <small class="p-error" *ngIf=" !donar.lastName">Last Name is required.</small>
+        </div>
+        <div class="p-field">
+            <label for="name">email</label>
+            <input type="email" pInputText id="email" [(ngModel)]="donar.email" required autofocus />
+            <small class="p-error" *ngIf=" !donar.email">Name is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveDonar()"></button>
+    </ng-template>
+</p-dialog>
+

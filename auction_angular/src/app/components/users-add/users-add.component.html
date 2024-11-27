@@ -1,0 +1,22 @@
+<p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" header="user Details" [modal]="true" [closable]="false"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">Email</label>
+            <input type="text" pInputText id="name" [(ngModel)]="user.email" required autofocus />
+            <small class="p-error" *ngIf=" !user.email">Email is required.</small>
+        </div>
+        <div class="p-field">
+            <label for="name">Password</label>
+            <input type="text" pInputText id="password" [(ngModel)]="user.password" required autofocus />
+            <small class="p-error" *ngIf=" !user.password">Password is required.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveUser()"></button>
+    </ng-template>
+</p-dialog>
+
+

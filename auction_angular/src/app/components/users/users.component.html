@@ -1,0 +1,60 @@
+ <p-toolbar class="my-toolbar" styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New User" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="openNew()"></button>
+    </ng-template>
+    <ng-template pTemplate="center">
+        <h2>🔷R@F Auction🔷</h2>
+    </ng-template>
+    <ng-template pTemplate="right">
+        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+    </ng-template>
+</p-toolbar>
+<app-menu></app-menu>
+<div class="my-css">
+    <p-table #dt [value]="users" [rows]="5" [paginator]="true"
+        [globalFilterFields]="['userId','email']" [(selection)]="selectedUsers"
+        [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-conten6bt-between">
+                <div class="p-inputgroup" *ngIf="dt">
+                    <input pInputText type="text" [(ngModel)]="searchValue" placeholder="Search..." />
+                    <button pButton type="button" icon="pi pi-search" (click)="applyFilter()"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+ 
+                <th pSortableColumn="userId">Id <p-sortIcon field="userId"></p-sortIcon></th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>{{user.userId}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editUser(user)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteUser(user)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{users ? users.length : 0 }} users.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<app-users-add [user]="user" [(userDialog)]="userDialog"></app-users-add>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog> 
+
+ 
+

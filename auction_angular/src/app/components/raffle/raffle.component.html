@@ -1,0 +1,95 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+      <div class="field-search">
+        <div class="p-inputgroup search-input-group">
+          <input type="text" [(ngModel)]="searchQuery" (input)="applyFilter()" placeholder="Search...">
+           <button pButton type="button" icon="pi pi-search" (click)="applyFilter()"></button> 
+        </div>
+      </div>
+      
+    </ng-template>
+    <ng-template pTemplate="center">
+      <div style="text-align: center;">
+          <h1 style="font-family: fantasy;">"Were Here F🪙R Eachother"</h1>
+          <h3 style="font-family:Arial, Helvetica, sans-serif;color:#f7cb0a">Chinese Auction 2024</h3>
+      </div>
+  </ng-template>
+  
+  <ng-template pTemplate="right">
+    <div class="flex align-items-center">
+      <p-menu #profileMenu [popup]="true" [model]="profileItems"></p-menu>
+      <button (click)="profileMenu.toggle($event)" pButton icon="pi pi-user" class="mr-2" title="Profile">{{ userName }}</button>
+      <button (click)="cart()" pButton icon="pi pi-shopping-cart" title="Cart"></button>
+    </div>
+  </ng-template>
+  </p-toolbar>
+<br>
+
+<h3 style="text-align: center;">🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷🪙🔷🎁🔷</h3>
+
+<div class="border">
+<div class="flex flex-row-reverse"> 
+    <div class="field-orderby">
+        Sort by:
+      <p-dropdown [options]="orderBYs" [(ngModel)]="orderby" (ngModelChange)="onOrderbyChange()"></p-dropdown>
+    </div>
+  </div>
+
+  <div class="flex">
+    <div class="flex">
+      <div class="flex flex-column gap-2">
+        <h4>Category</h4>
+        <div *ngFor="let category of categories" class="field-checkbox">
+          <p-checkbox
+            [label]="category.name"
+            name="group"
+            [value]="category.name"
+            [(ngModel)]="selectedCategory"
+            [disabled]="selectedCategory !== null && selectedCategory !== category.name"
+            (click)="bycategory(category.name)"
+          ></p-checkbox>
+        </div>
+      </div>
+    </div>
+  
+    <div class="field-dataView">
+      <div class="field-toolbar">
+
+      </div>
+      
+      <p-dataView #dv [value]="presents"  filterBy="name" filterMatchMode="contains" [rows]="5" [paginator]="true" class="p-dataview-item" filterField="columnField" >
+        <ng-template let-present pTemplate="listItem" >
+            <div class="col-12">
+                <div class="flex flex-column xl:flex-row xl:align-start p-4 gap-4">
+                     <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://localhost:44342/photos/' + present.image_Url" [alt]="present.name" /> 
+                    <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                            <div class="text-2xl font-bold text-900">{{ present.name }}</div>
+                            <div class="flex align-items-center gap-3">
+                                <span class="flex align-items-center gap-2">
+                                    <i class="pi pi-tag"></i>
+                                     <span class="font-semibold">{{ present.donar.firstName }} {{ present.donar.lastName }}</span> 
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-center gap-3 sm:gap-2">
+                           
+                        </div>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2" *ngIf="present.winner==null" >
+                            <span class="text-2xl font-semibold">{{ '$' + present.price }}</span>
+                            <button (click)="addToCart(present)" pButton icon="pi pi-plus" class="md:align-self-end mb-2 p-button-rounded"> Add to cart</button>
+                        </div>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2" *ngIf="present.winner!=null" >
+                            <span class="text-2xl font-semibold">{{ present.winner }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+      
+ 
+        
+    </p-dataView>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<p-toolbar class="my-toolbar" styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New Donar" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="openNew()"></button>
+    </ng-template>
+    <ng-template pTemplate="center">
+        <h2>🔷R@F Auction🔷</h2>
+    </ng-template>
+ 
+    <ng-template pTemplate="right">
+        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+    </ng-template>
+</p-toolbar>
+<app-menu></app-menu>
+<div class="my-css">
+    <p-table #dt [value]="donars" [rows]="6" [paginator]="true"
+        [globalFilterFields]="['id','firstName','lastName','email','presents']" [(selection)]="selectedDonars"
+        [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-conten6bt-between">            
+                <div class="p-inputgroup" *ngIf="dt">
+                    <input pInputText type="text" [(ngModel)]="searchValue" placeholder="Search..." />
+                    <button pButton type="button" icon="pi pi-search" (click)="applyFilter()"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">Id <p-sortIcon field="number"></p-sortIcon></th>
+                <th pSortableColumn="firstname">First Name <p-sortIcon field="firstName"></p-sortIcon></th>
+                <th pSortableColumn="lastname">Last Name <p-sortIcon field="lastName"></p-sortIcon></th>
+                <th pSortableColumn="email">Email<p-sortIcon field="email"></p-sortIcon></th>
+                <th pSortableColumn="presents">Presents<p-sortIcon field="presents"></p-sortIcon></th>
+            <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-donar>
+            <tr>
+                <td>{{donar.id}}</td>
+                <td>{{donar.firstName}}</td>
+                <td>{{donar.lastName}}</td>
+                <td>{{donar.email}}</td>
+                <td>
+                    <p-dropdown appendTo="body" [options]="getPresentNames(donar.presents)" ></p-dropdown>
+                    </td>    
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editDonar(donar)"></button>
+                    <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteDonar(donar)"></button> -->
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{donars ? donars.length : 0 }} donars.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<app-donars-add [donar]="donar" [(donarDialog)]="donarDialog"></app-donars-add>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+

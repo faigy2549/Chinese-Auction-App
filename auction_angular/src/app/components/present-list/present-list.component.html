@@ -1,0 +1,64 @@
+<p-toolbar class="my-toolbar" styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="New Present" icon="pi pi-plus" class="p-button-success mr-2"
+            (click)="openNew()"></button>
+    </ng-template>
+    <ng-template pTemplate="center">
+        <h2>🔷R@F Auction🔷</h2>
+    </ng-template>
+    <ng-template pTemplate="right">
+        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+    </ng-template>
+</p-toolbar>
+<app-menu></app-menu>
+<div class="my-css">
+    <p-table #dt [value]="presents" [rows]="5" [paginator]="true" class="p-table"
+        [globalFilterFields]="['name','monthlyTax']" [(selection)]="selectedPresents"
+        [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <div class="p-inputgroup" *ngIf="dt">
+                    <input pInputText type="text" [(ngModel)]="searchValue" placeholder="Search..." />
+                    <button pButton type="button" icon="pi pi-search" (click)="applyFilter()"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th pSortableColumn="presentId">Id <p-sortIcon field="presentId"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="donarId">Donar <p-sortIcon field="donarId"></p-sortIcon></th>
+                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                <th pSortableColumn="price">Ticket Price <p-sortIcon field="price"></p-sortIcon></th>
+                <th pColumn=""></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-present>
+            <tr >
+                <td>{{present.presentId}}</td>
+                <td>{{present.name}}</td>
+                <td>{{present.donarId}} </td>
+                <td>{{present.category}}</td>
+                <td>{{present.price | currency : 'ILS'}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editPresent(present)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deletePresent(present)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{presents ? presents.length : 0 }} presents.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<app-form-add [present]="present" [(presentDialog)]="presentDialog"></app-form-add>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

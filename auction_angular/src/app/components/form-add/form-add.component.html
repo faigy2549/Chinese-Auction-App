@@ -1,0 +1,36 @@
+<p-dialog [(visible)]="presentDialog" [style]="{width: '450px'}" header="Present Details" [modal]="true"
+    styleClass="p-fluid" [closable]="false">
+    <ng-template pTemplate="content">
+        <div class="p-field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="present.name" required autofocus />
+            <small class="p-error" *ngIf=" !present.name">Name is required.</small>
+        </div>
+        <div class="p-field">
+            <label for="ticketPrice">TicketPrice</label>
+            <input type="number" pInputText id="ticketPrice" [(ngModel)]="present.price" required autofocus />
+            <small class="p-error" *ngIf=" !present.price">ticketPrice is required.</small>
+        </div>
+        <div class="p-field">
+            <label for="donar">Donar</label>
+             <input type="text" pInputText id="donar" [(ngModel)]="present.donarId" required autofocus /> 
+            <!-- <p-dropdown [options]="donars" [(ngModel)]="present.donarId" ></p-dropdown> -->
+        </div>
+        <div class="p-field">
+            <label for="donar">Category</label>
+            <p-dropdown [options]="categories" [(ngModel)]="category" ></p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label for="image">Image</label>
+            <input type="text" pInputText id="image_Url" [(ngModel)]="present.image_Url" required autofocus />
+            <small class="p-error" *ngIf="!present.image_Url">category is required.</small>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="savePresent()"></button>
+    </ng-template>
+</p-dialog>

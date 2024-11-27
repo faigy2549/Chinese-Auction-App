@@ -1,0 +1,30 @@
+
+<div class="container">
+    <h3>🔷R@F Auction🔷</h3> 
+    <div class="content-wrapper">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <input [(ngModel)]="userEmail" pInputText required type="email" placeholder="Username (email address)" />
+      </div>
+      <br>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+            <i class="pi pi-lock"></i>
+        </span>
+        <input [(ngModel)]="password" type="password" pInputText placeholder="Password" />
+      </div>
+      <br>
+      <p-button styleClass="custom-button" (click)="login()">Login</p-button>
+      <br>
+      <p-button styleClass="custom-button" (click)="register()">Register</p-button>
+    </div>
+  </div>
+
+    
+
+
+
+
+
